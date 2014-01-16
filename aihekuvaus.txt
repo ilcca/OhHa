@@ -1,0 +1,13 @@
+Aihe: J‰tk‰nshakki
+Kahden pelaajan peli, jossa pelaajat lis‰‰v‰t merkkej‰ ruudukkoon vuorotelleen yritt‰en saada viiden merkin suoran joko pystyyn, vaakaan tai vinoon.
+
+Ruudukon koko voidaan m‰‰ritt‰‰ pelin alussa.
+
+Pelaajat voivat nimet‰ itsens‰ pelin alussa, jolloin ohjelma tilatoi pelin tulokset, jotka ohjelma tallentaa.
+
+Keskener‰isen pelin voi keskeytt‰‰ ja tallentaa ja jatkaa myˆhemmin halutessa.
+
+Ohjelma n‰ytt‰‰ tilastoja nimettyjen pelaajien tuloksista esim. eniten voittoja, nopeimmat voittajat, kiivaimmat vastustajaparit
+
+
+
