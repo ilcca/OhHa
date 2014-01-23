@@ -1,0 +1,74 @@
+cd C:\Documents and Settings\513228\OhHa\ohha; "JAVA_HOME=C:\\Program Files\\Java\\jdk1.7.0_51" cmd /c "\"\"C:\\Program Files\\NetBeans 7.4\\java\\maven\\bin\\mvn.bat\" -Dmaven.ext.class.path=\"C:\\Program Files\\NetBeans 7.4\\java\\maven-nblib\\netbeans-eventspy.jar\" org.pitest:pitest-maven:mutationCoverage\""
+Scanning for projects...
+                                                                        
+------------------------------------------------------------------------
+Building ohha 1.0-SNAPSHOT
+------------------------------------------------------------------------
+
+--- pitest-maven:0.30:mutationCoverage (default-cli) @ ohha ---
+0:54:13 PIT >> INFO : Mutating from C:\Documents and Settings\513228\OhHa\ohha\target\classes
+0:54:13 PIT >> INFO : Verbose logging is disabled. If you encounter an problem please enable it before reporting an issue.
+0:54:14 PIT >> INFO : Sending 2 test classes to slave
+0:54:14 PIT >> INFO : Sent tests to slave
+0:54:14 PIT >> INFO : SLAVE : 0:54:14 PIT >> INFO : Found  4 tests
+0:54:14 PIT >> INFO : Dependency analysis reduced number of potential tests by 0
+0:54:14 PIT >> INFO : 4 tests received
+
+|0:54:14 PIT >> INFO : Calculated coverage in 0 seconds.
+0:54:14 PIT >> INFO : Created  2 mutation test units
+-0:54:15 PIT >> INFO : Completed in 1 seconds
+================================================================================
+- Timings
+================================================================================
+> scan classpath : < 1 second
+> coverage and dependency analysis : < 1 second
+> build mutation tests : < 1 second
+> run mutation analysis : 1 seconds
+--------------------------------------------------------------------------------
+> Total  : 1 seconds
+--------------------------------------------------------------------------------
+================================================================================
+- Statistics
+================================================================================
+>> Generated 31 mutations Killed 13 (42%)
+>> Ran 25 tests (0.81 tests per mutation)
+================================================================================
+- Mutators
+================================================================================
+> org.pitest.mutationtest.engine.gregor.mutators.MathMutator
+>> Generated 4 Killed 2 (50%)
+> KILLED 2 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 2 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.ConditionalsBoundaryMutator
+>> Generated 8 Killed 4 (50%)
+> KILLED 4 SURVIVED 2 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 2 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.ReturnValsMutator
+>> Generated 6 Killed 1 (17%)
+> KILLED 1 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 5 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.VoidMethodCallMutator
+>> Generated 2 Killed 0 (0%)
+> KILLED 0 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 2 
+--------------------------------------------------------------------------------
+> org.pitest.mutationtest.engine.gregor.mutators.NegateConditionalsMutator
+>> Generated 11 Killed 6 (55%)
+> KILLED 6 SURVIVED 0 TIMED_OUT 0 NON_VIABLE 0 
+> MEMORY_ERROR 0 NOT_STARTED 0 STARTED 0 RUN_ERROR 0 
+> NO_COVERAGE 5 
+--------------------------------------------------------------------------------
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time: 3.407s
+Finished at: Fri Jan 24 00:54:15 EET 2014
+Final Memory: 6M/15M
+------------------------------------------------------------------------
