@@ -1,3 +1,4 @@
 16.1.2014:
 4 tuntia: ohjelmien asennusta ja aiheen valintaa
-
+23.1.2014:
+8 tuntia: Netbeans opettelua 1t, Javan opettelua 3t, JUnit testien opettelua 2t, koodausta ja suunnittelua 2t
