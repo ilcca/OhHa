@@ -1,0 +1,9 @@
+30.1.2014 5 tuntia:
+3 tuntia JUnit -testien ajoja ja PIT-raportteja ja korjauksia testien pohjalta
+1 tunti pelin voittajantunnistamislogiikan suunnittelua, ei valmista koodia vielä
+1 tunti ohjaajan kanssa suunnittelua sekä Github-ympäristön asettelua
+
+23.1.2014:
+8 tuntia: Netbeans opettelua 1t, Javan opettelua 3t, JUnit testien opettelua 2t, koodausta ja suunnittelua 2t
+16.1.2014:
+4 tuntia: ohjelmien asennusta ja aiheen valintaa

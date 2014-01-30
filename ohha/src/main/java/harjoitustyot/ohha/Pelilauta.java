@@ -5,7 +5,7 @@
  */
 
 package harjoitustyot.ohha;
-
+import java.util.Arrays;
 
 
 /**
@@ -37,59 +37,67 @@ public class Pelilauta {
    public boolean asetaMerkki(int x, int y, String merkki) {
        int syote;
 //Tarkista parametrit
-       if (x>this.pelilautaLeveys-1) return false;
-       if (y>this.pelilautaKorkeus-1) return false;
+//Hyväksyy leveys (x) ja korkeus (y) koordinaatit vain jos mahtuvat laudalle
+       if (x>this.pelilautaLeveys) return false;
+       if (y>this.pelilautaKorkeus) return false;
+       if (x<1) return false;
+       if (y<1) return false;
+//Hyväksyy merkiksi, vain "Risti" tai "Nolla"
        if (merkki.matches("Risti")) syote=1;
        else if (merkki.matches("Nolla")) syote=2;
        else return false;
 //Tarkista onko paikka vapaana
+// kalibroi koordinaatit array-viittauksiksi alkaen paikasta 0
+       x=x-1; 
+       y=y-1;
+
        if (this.lautamatriisi[x][y]==0) {
            this.lautamatriisi[x][y]=syote;
+           return true;
        }
-       return true;
-    }
+       return false;
+   }
    
    
    /*
-   public int[][] etsiSuorat() {
-       etsiVaakaan();
+   public int[][] etsiSuorat(int x, int y, String merkki) {
+       int tulosvektori[][]=etsiVaakaan(x,y,merkki);
        return null;
    }
 
-   private int[][] etsiVaakaan() {
-      int[][] rivintyhjennys = {{0,0},{0,0},{0,0},{0,0},{0,0}};
-      int[][] rivinkoordinaatit = rivintyhjennys;
-      int rivinpituus = 0;
-      int rivinmerkki = 0;
-      
-      outerloop:
-      for (int j=0;j<this.pelilautaKorkeus;j=j+1) {
-          rivinkoordinaatit = rivintyhjennys;
-          rivinkoordinaatit[0][0] = 0;  
-          rivinkoordinaatit[0][1] = j;  
-          rivinpituus=1;
-          if (this.lautamatriisi[0][j]==1)
-              rivinmerkki=1;
-          else rivinmerkki=2;
-         
-          for (int i=1;i<this.pelilautaLeveys-SUORANKOKO;i=i+1) {
-            if (this.lautamatriisi[i][j]==1){
-                    
-            }
-          }
-            
-            if (this.lautamatriisi[i][j]==2);
-                    nolla+=1;
-   }
-   }
-   }
-        return null;
+   private int[][] etsiVaakaan(int x, int y) {
+       int merkki = lautamatriisi[x-1][y-1];
+       if (merkki==1 || merkki==2) {
+       //Vasen suunta
+       int suora = 1;
+       int vasen=SUORANKOKO-suora;
+       if (vasen>x)
+           vasen=x;
+       for (int i=vasen;i<=0;i=i-1){
+           if (lautamatriisi[i-1][y-1]==merkki) {
+               suora+=1;
+           }         
+           else break;
+       }
+       int oikea=SUORANKOKO-suora;
+       if (oikea>x)
+           oikea=x;
+       for (int i=oikea;i<=0;i=i-1){
+           if (lautamatriisi[i-1][y-1]==merkki) {
+               suora+=1;
+           }         
+           else break;
+       }
+       }
+       return null;
    }
    */
+   
    
    public int[][] haeLautaMatriisiTaulukko() {
        return this.lautamatriisi;
    }
+   
    public String tulostaLautaMatriisi() {
        String tuloste = "";
        for (int j=0;j<this.pelilautaKorkeus;j=j+1) {
@@ -100,4 +108,16 @@ public class Pelilauta {
        }
    return tuloste;
    }
+   public String toString() {
+       String tuloste = "";
+       for (int j=0;j<this.pelilautaKorkeus;j=j+1) {
+           for (int i=0;i<this.pelilautaLeveys;i=i+1){
+               tuloste = tuloste + this.lautamatriisi[i][j];
+           }          
+           tuloste+="\r\n";
+       }
+   return tuloste;
+   
+   }
+
 }

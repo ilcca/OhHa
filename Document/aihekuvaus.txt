@@ -1,0 +1,34 @@
+30.1.
+Aihe: J‰tk‰nshakki
+Kahden pelaajan peli, jossa pelaajat lis‰‰v‰t merkkej‰ ruudukkoon vuorotelleen yritt‰en saada viiden merkin suoran joko pystyyn, vaakaan tai vinoon.
+
+Ruudukon koko voidaan m‰‰ritt‰‰ pelin alussa. Ohjelma ei anna ylitt‰‰ rajoja laudan koossa.
+Graafinen hiirell‰ k‰ytett‰v‰ k‰yttˆliittym‰.
+Ohjelma ei anna laittaa v‰‰riinpaikkoihin merkkej‰ eik‰ v‰‰ri‰ merkkej‰,
+Pelaajat voivat nimet‰ itsens‰ pelin alussa.
+Ohjelma tarkastaa joka vuoron j‰lkeen onko peli p‰‰ttynyt, joko voittoon tai tasapeliin. 
+Voitossa voittorivi n‰ytet‰‰n pelilaudalla.
+Keskener‰isen pelin voi keskeytt‰‰ ja tallentaa ja jatkaa myˆhemmin halutessa.
+
+Mahdollisia ominaisuuksia:
+Tilastoi nimettyjen pelaajien voitot ja tappiot
+Listaa pelaaajat menestysj‰rjestyksess‰ tilastoista
+
+
+
+
+
+16.1.
+Aihe: J‰tk‰nshakki
+Kahden pelaajan peli, jossa pelaajat lis‰‰v‰t merkkej‰ ruudukkoon vuorotelleen yritt‰en saada viiden merkin suoran joko pystyyn, vaakaan tai vinoon.
+
+Ruudukon koko voidaan m‰‰ritt‰‰ pelin alussa.
+
+Pelaajat voivat nimet‰ itsens‰ pelin alussa, jolloin ohjelma tilatoi pelin tulokset, jotka ohjelma tallentaa.
+
+Keskener‰isen pelin voi keskeytt‰‰ ja tallentaa ja jatkaa myˆhemmin halutessa.
+
+Ohjelma n‰ytt‰‰ tilastoja nimettyjen pelaajien tuloksista esim. eniten voittoja, nopeimmat voittajat, kiivaimmat vastustajaparit
+
+
+

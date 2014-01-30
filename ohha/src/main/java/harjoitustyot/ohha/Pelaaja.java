@@ -11,5 +11,20 @@ package harjoitustyot.ohha;
  * @author 513228
  */
 class Pelaaja {
+    private String nimi = "";
+    private String merkki = "";
     
+    public Pelaaja(String nimi, String merkki) {
+        this.nimi=nimi;
+        this.merkki=merkki;
+    }
+    public String annaNimi(){
+        return this.nimi;
+    }
+    public String annaMerkki(){
+        return this.merkki;
+    }
+    public String toString(){
+        return this.merkki + ": " + this.nimi;
+    }
 }
