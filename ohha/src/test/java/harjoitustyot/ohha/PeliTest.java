@@ -13,6 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
+
 /**
  *
  * @author 513228
@@ -42,55 +45,15 @@ public class PeliTest {
 */
     @Test
     public void luoPeliTulosta() {
-      Peli peli = new Peli();
-      
-      String vastaus = peli.toString(); 
-
-      assertEquals("0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"Risti: Ilkka\r\n" +
-"Nolla: Antti", vastaus);
-    }
-    @Test
-    public void luoPeliTulostaPelilauta() {
-      Peli peli = new Peli();
-      
-      String vastaus = peli.annaPelilauta().toString(); 
-
-      assertEquals("0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n" +
-"0000000000\r\n", vastaus);
-    }
-    @Test
-    public void luoPeliTulostaRisti() {
-      Peli peli = new Peli();
-      
-      String vastaus = peli.annaPelaajaRisti().toString(); 
-
-      assertEquals("Risti: Ilkka", vastaus);
-    }
-    @Test
-    public void luoPeliTulostaNolla() {
-      Peli peli = new Peli();
-      
-      String vastaus = peli.annaPelaajaNolla().toString(); 
-
-      assertEquals("Nolla: Antti", vastaus);
+        Pelilauta pelilauta = new Pelilauta(7, 1);
+        pelilauta.asetaMerkki(1, 1, "Risti");
+        pelilauta.asetaMerkki(2, 1, "Risti");
+        pelilauta.asetaMerkki(3, 1, "Risti");
+        pelilauta.asetaMerkki(4, 1, "Risti");
+        pelilauta.asetaMerkki(5, 1, "Risti");
+        ArrayList vastaus = pelilauta.etsiSuorat(5,1);
+        
+        assertEquals("0000000,0000000,0000000,0000000,0000000,0000000,0000001,", vastaus);
     }
 
 }

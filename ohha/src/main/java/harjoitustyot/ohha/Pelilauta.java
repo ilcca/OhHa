@@ -6,23 +6,38 @@
 
 package harjoitustyot.ohha;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 
 /**
- *
+ *Pitää yllä pelilaudan tilannetta mitä merkkejä risti tai nolla missäkin kohtaa lautaa. 
+ * Luokan kautta merkkien lisäykset tarkastuksineen
+ * Luokan kautta tarkistus onko voittorivejä laudalla annetusta koordinaatista
  * @author 513228
  */
 public class Pelilauta {
    private int pelilautaKorkeus;
    private int pelilautaLeveys;
    private final int OLETUSKOKO=10;
+   private final int MinLeveys = 5;
+   private final int MaxLeveys = 50;
+   private final int MinKorkeus = 1;
+   private final int MaxKorkeus = 50;
    private int[][] lautamatriisi; // pelilaudan ruudukko, ruudukoilla arvot 0 = tyhjä, 1=pelaajan yksi merkki, 2=pelaajan kaksi merkki
    //kuinka montaa peräkkäistä tavoitellaan
    private final int SUORANKOKO=5;
-   
-   public Pelilauta (int korkeus, int leveys){
+   private int maxmerkkilkm;
+   private int merkkilkm = 0;
+
+   /**
+    * Konstruktori luo laudan matriisin annetuilla leveydellä ja korkeudella
+    * Jos annetut mittasuhteet liian isoja tai pieniä, luo oletuskokoisen laudan
+    * @param leveys Laudan leveys
+    * @param korkeus Laudaan korkeus
+    */
+   public Pelilauta (int leveys, int korkeus){
        //Asettaa korkeus ja leveysmuuttujat jos ovat välillä 7-25 muuten oletuskoko 15
-       if (korkeus>=7 && korkeus<=25 && leveys>=7 && leveys<=25) {
+       if (korkeus>=this.MinKorkeus && korkeus<=this.MaxKorkeus && leveys>=this.MinLeveys && leveys<=this.MaxLeveys) {
         this.pelilautaKorkeus=korkeus;
         this.pelilautaLeveys=leveys;
        }
@@ -33,7 +48,17 @@ public class Pelilauta {
        
        //luo pelilaudan matriisin ja alustaa matriisin ruutujen aloitustilat eli tyhjjät
        this.lautamatriisi=new int [pelilautaKorkeus][pelilautaLeveys];
+       this.maxmerkkilkm=this.pelilautaKorkeus*this.pelilautaLeveys;
+
    }
+/**
+ * Asettaa annetun merkin laudalle jos paikka on vapaana ja laudalla. 
+ * Merkki Risti merkataan lautamatriisi -taulukkoon arvolla 1 ja merkki Nolla merkataan arvolla 2, tyhjät ruudut ovat arvoja 0
+ * @param x leveyskoordinaatti (1 = vasein ruutu)
+ * @param y korkeuskoordinaatti (1 = ylin ruutu)
+ * @param merkki Saa olla syötteenä vain "Risti" tai "Nolla"
+ * @return onnistuiko asennus
+ */
    public boolean asetaMerkki(int x, int y, String merkki) {
        int syote;
 //Tarkista parametrit
@@ -53,49 +78,91 @@ public class Pelilauta {
 
        if (this.lautamatriisi[x][y]==0) {
            this.lautamatriisi[x][y]=syote;
+           this.merkkilkm+=1;
            return true;
        }
        return false;
    }
    
    
-   /*
-   public int[][] etsiSuorat(int x, int y, String merkki) {
-       int tulosvektori[][]=etsiVaakaan(x,y,merkki);
-       return null;
+   /**
+    * Kokoaa kolme tarkistus metodia etsiVaakaan, etsiPystyyn, etsiVinoon pelin voittajan selvittämiseksi
+    * Etsintä tehdään aina viimeksi lisätyn koordinaatin välittömästä läheisyydstä - eu tarkista siis koko lautaa
+    * HUOM! vasta vaakaan tarkistus kolmesta metodista valmiina
+    * @param x Leveys koordinaatti
+    * @param y Pystykoordinaatti
+    * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
+    */
+   public ArrayList etsiSuorat(int x, int y) {
+       return etsiVaakaan(x,y);
    }
-
-   private int[][] etsiVaakaan(int x, int y) {
+   
+   /** Vakaan tarkistus
+    * Kokoaa annetusta koordinaatista vaakaan samojen vierekkäisten merkkien koordinaatit taulukkoon
+    * @param x Leveys koordinaatti
+    * @param y Pystykoordinaatti
+    * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
+    */
+   private ArrayList etsiVaakaan(int x, int y) {
        int merkki = lautamatriisi[x-1][y-1];
+       ArrayList koordinaatit = new ArrayList();
+
        if (merkki==1 || merkki==2) {
        //Vasen suunta
-       int suora = 1;
-       int vasen=SUORANKOKO-suora;
-       if (vasen>x)
-           vasen=x;
-       for (int i=vasen;i<=0;i=i-1){
-           if (lautamatriisi[i-1][y-1]==merkki) {
-               suora+=1;
-           }         
-           else break;
+           int vasenmax;        
+           ArrayList koordinaatti = new ArrayList();
+           koordinaatti.add(x);
+           koordinaatti.add(y);
+           koordinaatit.add(koordinaatti);
+           
+
+           if (x-SUORANKOKO+koordinaatit.size()<1)
+                vasenmax=1;
+           else vasenmax=x-SUORANKOKO+koordinaatit.size();
+        
+           for (int i=x-1;i>=vasenmax;i=i-1){
+                if (lautamatriisi[i-1][y-1]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(i);
+                    koordinaatti.add(y);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+
+           //Oikea suunta
+           int oikeamax;
+           if (x+SUORANKOKO-koordinaatit.size()>this.pelilautaLeveys)
+                oikeamax=this.pelilautaLeveys;
+           else oikeamax=x+SUORANKOKO-koordinaatit.size();
+        
+           for (int i=x+1;i<=oikeamax;i=i+1){
+                if (lautamatriisi[i-1][y-1]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(i);
+                    koordinaatti.add(y);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
        }
-       int oikea=SUORANKOKO-suora;
-       if (oikea>x)
-           oikea=x;
-       for (int i=oikea;i<=0;i=i-1){
-           if (lautamatriisi[i-1][y-1]==merkki) {
-               suora+=1;
-           }         
-           else break;
-       }
-       }
-       return null;
+       return koordinaatit;
+   
    }
-   */
+   
    
    
    public int[][] haeLautaMatriisiTaulukko() {
        return this.lautamatriisi;
+   }
+   public int annaMaxKoko() {
+       return this.maxmerkkilkm;
+   }
+   public int annaMerkkilkm() {
+       return this.merkkilkm;
+   }
+   public int annaSuoranKoko() {
+       return this.SUORANKOKO;
    }
    
    public String tulostaLautaMatriisi() {

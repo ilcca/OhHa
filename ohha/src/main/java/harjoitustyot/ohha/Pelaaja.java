@@ -7,7 +7,8 @@
 package harjoitustyot.ohha;
 
 /**
- *
+ *Pelaaja -luokkaan tallennetaan pelaajan nimi, johon pelin kulussa viitataan. 
+ * Huom! Tallettaa myös millä merkillä pelaaja pelaa, vaikka tätä tietoa ei tarvita toistaiseksi.
  * @author 513228
  */
 class Pelaaja {
