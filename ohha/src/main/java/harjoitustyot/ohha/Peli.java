@@ -34,9 +34,6 @@ public class Peli {
         else this.vuoro="Risti";
     }
     
-    public String toString() {
-        return this.pelilauta.toString() + this.pelaajaRisti + "\r\n" + this.pelaajaNolla;
-    }
     /**
      * Suorittaa yhden vuoron aikaiset toimenpiteet ja vaihtaa vuoroja
      * Käyttää Pelilautaa merkkien asettamiseen laudalla ja pelin loppumisen selvittämiseen
@@ -70,6 +67,13 @@ public class Peli {
             
         }        
 
+    }
+    public Pelilauta annaPelilauta() {
+        return this.pelilauta;
+    }
+    
+    public String toString() {
+        return this.pelilauta.toString() + this.pelaajaRisti + "\r\n" + this.pelaajaNolla;
     }
 
 }

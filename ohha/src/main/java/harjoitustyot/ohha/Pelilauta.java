@@ -164,6 +164,12 @@ public class Pelilauta {
    public int annaSuoranKoko() {
        return this.SUORANKOKO;
    }
+   public int annaKorkeus() {
+       return this.pelilautaKorkeus;
+   }
+   public int annaLeveys() {
+       return this.pelilautaLeveys;
+   }
    
    public String tulostaLautaMatriisi() {
        String tuloste = "";
