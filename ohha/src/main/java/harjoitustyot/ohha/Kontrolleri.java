@@ -15,11 +15,30 @@ import java.awt.event.ActionListener;
  */
 public class Kontrolleri {
     private Peli peli;
-    private Naytto;
-    private ActionListener kuuntelija;
+    private Naytto naytto;
     
-    public Kontrolleri() {
-        
+    public Kontrolleri(Naytto naytto, Peli peli) {
+        this.peli=peli;
+        this.naytto=naytto;
+    }
+    public void Kontrolloi() {
+        ActionListener kuuntelija;
+        for (int i=0;i<this.peli.annaPelilauta().annaLeveys();i++) {
+            for (int j=0;j<this.peli.annaPelilauta().annaKorkeus();j++) {
+                kuuntelija = new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {                  
+//                        int x = e.getSource();
+                        kasitteleVastaus(1,1);
+                    }
+                };
+                naytto.annaNappi(i+1, j+1).addActionListener(kuuntelija);
+            }
+        }
+    }
+    private void kasitteleVastaus(int x, int y){
+        if (peli.annaPelilauta().asetaMerkki(x, y, peli.annaVuoro()))
+            naytto.asetaNappi(x,y,peli.annaVuoro());
         
     }
 }

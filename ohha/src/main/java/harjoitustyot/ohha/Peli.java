@@ -72,6 +72,9 @@ public class Peli {
         return this.pelilauta;
     }
     
+    public String annaVuoro() {
+        return this.vuoro;
+    }
     public String toString() {
         return this.pelilauta.toString() + this.pelaajaRisti + "\r\n" + this.pelaajaNolla;
     }

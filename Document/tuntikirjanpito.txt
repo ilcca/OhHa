@@ -1,3 +1,15 @@
+7.-14.2.2014
+10h GUI toimintojen opettelua
+5h VMC-mallin opettelua ja toteutusta koodissa
+1h sekvenssi- ja luokkakaavioita ja dokumentaatiota
+Lopputulos:
+Koodi kehittyi uusilla luokilla kuten Naytto ja Kontrolleri
+Luokkkien rakenne muuttui kun siirryttiin toteuttamaan VMC-mallia
+Olemassa suht selkeä idea toteutuksesta, mutta koodi ei toimi vielä tällä hetkellä
+Käyttöliittymästä on ollut muutamia näkymiä jo esillä
+Testejä ei tällä kertaa tehty, koska ei ollut mielekästä koodin ollessa rikki suurimman osan aikaa
+
+
 3--6.2.2014
 6h pelin voittajan selvityslogiikan koodausta
 3h luokkien roolien ja niiden välisten yhteistyön suunnittelua ja hiomista
