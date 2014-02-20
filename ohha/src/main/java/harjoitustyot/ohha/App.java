@@ -16,7 +16,8 @@ public class App
     {
                 
         Peli peli = new Peli();
-        new Naytto(peli);
+        Naytto naytto = new Naytto(peli.annaPelilauta().annaLeveys(),peli.annaPelilauta().annaKorkeus());
+        Kontrolleri kontrolleri = new Kontrolleri(naytto, peli);
 //        peli.suoritaVuoroja();
         
     }

@@ -6,8 +6,7 @@
 
 package harjoitustyot.ohha;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,25 +19,42 @@ public class Kontrolleri {
     public Kontrolleri(Naytto naytto, Peli peli) {
         this.peli=peli;
         this.naytto=naytto;
-    }
-    public void Kontrolloi() {
-        ActionListener kuuntelija;
-        for (int i=0;i<this.peli.annaPelilauta().annaLeveys();i++) {
-            for (int j=0;j<this.peli.annaPelilauta().annaKorkeus();j++) {
-                kuuntelija = new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {                  
-//                        int x = e.getSource();
-                        kasitteleVastaus(1,1);
-                    }
-                };
-                naytto.annaNappi(i+1, j+1).addActionListener(kuuntelija);
+        
+        Nappi[][] napit = naytto.annaNapit();
+        for (int j=0;j<peli.annaPelilauta().annaKorkeus();j++) {
+            for (int i=0;i<peli.annaPelilauta().annaLeveys();i++) {
+                napit[i][j].addActionListener(new NapinKuuntelija(napit[i][j], this));
             }
         }
     }
-    private void kasitteleVastaus(int x, int y){
-        if (peli.annaPelilauta().asetaMerkki(x, y, peli.annaVuoro()))
-            naytto.asetaNappi(x,y,peli.annaVuoro());
-        
+
+    public void kasitteleVastaus(int x, int y){
+        //System.out.println(x + " " + y);
+        if (this.peli.annaTilanne().equals("Kesken")) {
+
+            if (this.peli.annaPelilauta().asetaMerkki(x, y, this.peli.annaVuoro())) {
+                naytto.asetaNappi(x,y,peli.annaVuoro());
+                tarkistaTilanne(x, y);
+            }
+        }
     }
-}
+    public void tarkistaTilanne(int x, int y) {        
+        ArrayList rivi = this.peli.annaPelilauta().etsiSuorat(x, y);
+        if (rivi.size()>=this.peli.annaPelilauta().annaSuoranKoko()) {
+            this.peli.asetaTilanne(this.peli.annaVuoro());
+            naytaPelinVoitto(rivi);
+        }  
+        else if (this.peli.annaPelilauta().annaMaxKoko()==this.peli.annaPelilauta().annaMerkkilkm()){
+            
+        }
+
+        else this.peli.vaihdaVuoro();
+
+    }        
+    public void naytaPelinVoitto(ArrayList rivi) {
+        this.naytto.naytaVoittorivi(rivi);
+    }
+ }
+    
+
+

@@ -5,6 +5,8 @@
  */
 
 package harjoitustyot.ohha;
+
+import java.awt.Color;
 import javax.swing.JButton;
 
 /**
@@ -12,12 +14,20 @@ import javax.swing.JButton;
  * @author 513228
  */
 public class Nappi extends JButton {
-    int value=0;
-    public Nappi() {
-/*        
-        X = new ImageIcon(this.getClass().getResource("risti.PNG"));
-        X = new ImageIcon(this.getClass().getResource("nolla.PNG"));
-*/
-        
+    private final int x,y;
+    public Nappi(int x, int y) {
+        this.x=x;
+        this.y=y;
+        super.setBackground(Color.white);
+    
     }
+    public void asetaNappi() {
+    }
+    public int annaX() {
+        return this.x;
+    }
+    public int annaY() {
+        return this.y;
+    }
+    
 }

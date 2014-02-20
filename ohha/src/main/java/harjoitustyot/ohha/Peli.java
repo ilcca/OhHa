@@ -18,6 +18,7 @@ public class Peli {
     private final Pelaaja pelaajaNolla;
     private Pelilauta pelilauta;
     private String vuoro="Risti";
+    private String tilanne = "Kesken";
 
 /**
  * Konstruktori luo Pelaajat ja Pelilaudan
@@ -26,12 +27,15 @@ public class Peli {
     public Peli() {
         this.pelaajaRisti=new Pelaaja ("Ilkka", "Risti");
         this.pelaajaNolla=new Pelaaja ("Antti", "Nolla");
-        this.pelilauta=new Pelilauta (7, 7);
+        this.pelilauta=new Pelilauta (20, 20);
     }
 
     public void vaihdaVuoro (){
         if (this.vuoro.equals("Risti")) this.vuoro="Nolla";
         else this.vuoro="Risti";
+    }
+    public void asetaTilanne(String tilanne){
+        this.tilanne=tilanne;
     }
     
     /**
@@ -75,6 +79,10 @@ public class Peli {
     public String annaVuoro() {
         return this.vuoro;
     }
+    public String annaTilanne() {
+        return this.tilanne;
+    }
+    
     public String toString() {
         return this.pelilauta.toString() + this.pelaajaRisti + "\r\n" + this.pelaajaNolla;
     }

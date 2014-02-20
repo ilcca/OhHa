@@ -94,7 +94,19 @@ public class Pelilauta {
     * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
     */
    public ArrayList etsiSuorat(int x, int y) {
-       return etsiVaakaan(x,y);
+       
+       ArrayList kaikki = new ArrayList();
+       ArrayList vaakaan = etsiVaakaan(x,y);
+       ArrayList pystyyn = etsiPystyyn(x,y);
+       System.out.println(vaakaan);
+       System.out.println(pystyyn);
+       
+       if (vaakaan.size()>=5)
+           kaikki.addAll(vaakaan);
+       if (pystyyn.size()>=5)
+           kaikki.addAll(pystyyn);
+//       System.out.println(kaikki);
+       return kaikki;
    }
    
    /** Vakaan tarkistus
@@ -141,6 +153,52 @@ public class Pelilauta {
                     koordinaatti = new ArrayList();
                     koordinaatti.add(i);
                     koordinaatti.add(y);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+       }
+       return koordinaatit;
+   
+   }
+   private ArrayList etsiPystyyn(int x, int y) {
+       int merkki = lautamatriisi[x-1][y-1];
+       ArrayList koordinaatit = new ArrayList();
+
+       if (merkki==1 || merkki==2) {
+       //Ylöspäin
+           int ylosmax;        
+           ArrayList koordinaatti = new ArrayList();
+           koordinaatti.add(x);
+           koordinaatti.add(y);
+           koordinaatit.add(koordinaatti);
+           
+
+           if (y-SUORANKOKO+koordinaatit.size()<1)
+                ylosmax=1;
+           else ylosmax=y-SUORANKOKO+koordinaatit.size();
+        
+           for (int i=y-1;i>=ylosmax;i=i-1){
+                if (lautamatriisi[x-1][i-1]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x);
+                    koordinaatti.add(i);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+
+           //Alaspäin
+           int alasmax;
+           if (y+SUORANKOKO-koordinaatit.size()>this.pelilautaKorkeus)
+                alasmax=this.pelilautaKorkeus;
+           else alasmax=y+SUORANKOKO-koordinaatit.size();
+        
+           for (int i=y+1;i<=alasmax;i=i+1){
+                if (lautamatriisi[x-1][i-1]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x);
+                    koordinaatti.add(i);
                     koordinaatit.add(koordinaatti);
                 }         
                 else break;
