@@ -9,25 +9,67 @@ package harjoitustyot.ohha;
 import java.util.ArrayList;
 
 /**
- *
+ * Koordinoi peli kulkua
+ * Luodaan vain kerran peli session aikana
+ * Luo ja koordinoi Peliin pelin tilanteen
+ * Luo ja piirtaa Nayttoon pelin tilanteen
+ * Luokkamuuttujia muuttamalla voi vaikuttaa pelin asetuksiin:
+ * erilaiset lautavaihtoehdot
+ * pelissa tavoiteltavat suorakokojen vaihtoehdot
+ * vaihtoehdot nakyvillä kayttoliittymassa
  * @author 513228
  */
+
 public class Kontrolleri {
+    
+    private final int[][] lautakoot = new int[][]{{7,7},{14,14},{25,25}};
+    private final int[] suorakoot = new int[]{4,5,6};
+
+    private final int OLETUSLAUTA = 1; // 0,1,2 suorakokotaulukon indeksi
+    private final int OLETUSSUORA = 1;// 0,2,2 suorakokotaulukon indeksi
+    
     private Peli peli;
     private Naytto naytto;
-    
-    public Kontrolleri(Naytto naytto, Peli peli) {
-        this.peli=peli;
-        this.naytto=naytto;
+
         
-        Nappi[][] napit = naytto.annaNapit();
-        for (int j=0;j<peli.annaPelilauta().annaKorkeus();j++) {
-            for (int i=0;i<peli.annaPelilauta().annaLeveys();i++) {
-                napit[i][j].addActionListener(new NapinKuuntelija(napit[i][j], this));
-            }
-        }
+ /**
+  * Luo Peli-olion luokkamuuttujissa olevilla oletusasetuksilla
+  * Luo Naytto-olion luokkamuuttujissa olevilla oletusasetuksilla, Kontrolleri välitetään Nättö -oliolle
+  * 
+  * @author 513228
+  */
+    
+    public Kontrolleri() {
+        this.peli=new Peli(lautakoot[OLETUSLAUTA][0],lautakoot[OLETUSLAUTA][1],suorakoot[OLETUSSUORA]);
+        this.naytto=new Naytto(lautakoot, suorakoot, this);
     }
 
+    /**
+     * Luo uuden Peli-olion annetuilla parametreilla
+     * @param leveys laudan leveys
+     * @param korkeus on korkeus
+     */
+    public void uusiPeli(int leveys, int korkeus){
+        this.peli = new Peli(leveys, korkeus, this.peli.annaPelilauta().annaSuoranKoko());
+    }
+    /**
+     * Luo uuden Peli-olion annetuilla parametreilla
+     * @param suorakoko uuden Pelin tavoiteltava suorakoko
+     */
+
+    public void uusiPeli(int suorakoko){
+        this.peli = new Peli(this.peli.annaPelilauta().annaLeveys(), this.peli.annaPelilauta().annaKorkeus(), suorakoko);
+    }
+
+    /**
+     * Peliruudukon nappien painalusten käsittely, kutsutaan NapinKuuntelijasta ActionPerformed -metodista
+     * Asettaa klikattuun ruutuun vuorossa olevan Napin
+     * Koordinoi Pelilaudan tilanne tarkistukset eli aiheuttaako lisäys voittorivejä
+     * Ohjaa kohti uutta peliä, jos päättynyt
+     * Toiminnot Ketjutettu komeen seuraavaan metodiin kasitteleVastaus(), tarkistaTilanne(), naytaPelinVoitto
+     * @param x Klikatun ruudun x-koordinaatti
+     * @param y Klikatun ruudun y-koordinaatti
+     */
     public void kasitteleVastaus(int x, int y){
         //System.out.println(x + " " + y);
         if (this.peli.annaTilanne().equals("Kesken")) {
@@ -52,9 +94,23 @@ public class Kontrolleri {
 
     }        
     public void naytaPelinVoitto(ArrayList rivi) {
-        this.naytto.naytaVoittorivi(rivi);
+        this.naytto.naytaVoittorivi(rivi, this.peli.annaVuoro());
     }
- }
+    public int[][] annaLautakoot() {
+        return this.lautakoot;
+    }
+    public int[] annaSuorakoot() {
+        return this.suorakoot;
+    }
+
+    public Naytto annaNaytto() {
+        return this.naytto;
+    }
+    public Peli annaPeli() {
+        return this.peli;
+    }
+
+}
     
 
 

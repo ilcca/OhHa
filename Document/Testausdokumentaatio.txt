@@ -1,0 +1,12 @@
+Testausdokumentaatio
+
+Tein JUnit -testejä projektin alkuvaiheessa paljon ja testasinkin pelilogiikkaa tarkasti lukuisilla testeillä.
+Käyttöliittymän rakentamisessa yksikkötestaus oli hankalaa, koska tulesteet ja tavoiteltavat näkymät tulivat 
+graaiseen muotoon. Testasin kuitenkin jatkuvastri tulostamalla erilaisia muuttujien väliarvoja  ohjelman 
+suorituksen aikana ja analysoiden niistä ohjelman toimivuutta eri tilanteissa.
+
+Ohjelmakoodissa on konfiguroitavia muuttujia, joilla voi muuttaa tiettyjä ohjelmassa näkyviä vaihtoehtoja esim. 
+Kontrolleri -luokan final luokkamuuttujat. Ohjelma rikkoutuu jos yrittää asettaa nämä arvot negatiivisiksi. Jos 
+asettaa liaan ison pelilautavaihtoehdon ja käyttää sitä pelissä, pelilaudan grafiikka ei ole kovin luettavaa.
+
+

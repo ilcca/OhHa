@@ -1,0 +1,16 @@
+RistiNolla - k‰yttˆohje
+Kun ohjelma k‰ynnistet‰‰n, rutuun aukeaa ikkuna, jossa n‰kyy valikoita ja ruudukon muotoinen pelilauta.
+Peli‰ voi alkaa pelaamaan heti klikkaamalla pelilautaan, kohtaan johon hlauaa asettaa ensimm‰isen merkin.
+Ennen ensimm‰isen merkin asettamista on mahdollista valita valikoista muu laudan koko tai peliss‰ tavoiteltav 
+suoran pituus. Ensimm‰isen merkin asettamisen j‰lkeen valikot katoavat ja ovat k‰ytett‰viss‰ vasta seuraavassa 
+peliss‰.
+Peliohjeet:
+Pelaaja asettavat merkkej‰ pelilaudalle vuorotellen. Kumallakin pelaajalla on oma merkkins‰, joko risti tai nolla. 
+Risti on aloittavan pelaajan merkki. Pelaajat yritt‰v‰t saada omaa merkki‰ns‰ vierekk‰in 5 kappaletta (5 
+oletusasetus), joko vaakaan, pystyyn tai vinottain. Jos jonmpikumpi pelaaja t‰ss‰ onnistuu ennen laudan 
+t‰yttymist‰ on pelaaja voittaja. Ohjelma piirt‰‰ voittorivit pelilaudalle, joissa tavoiteltu per‰kk‰isten merkkien 
+suora toteutuu.
+Kun peli p‰‰ttyy, klikkaamalla lautaa viel‰ kerran uusi peli k‰ynnistyy ja valikoista on muutettavissa taas 
+pelilaudan kokoa tai tavoiteltavan suoran pituutta.
+
+

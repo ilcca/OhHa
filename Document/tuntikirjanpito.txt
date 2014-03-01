@@ -1,3 +1,18 @@
+26.-28.2.2014:
+5h toimintojen looppuunkoodaamista
+5h GUI:n kanssa tappelua
+3h DOkumentoinnin laatimista
+3h jar-tiedoston tekoa!!! Surkeet oli ohjeet... Ei ollut enää aikaa perehtyä asiaan tässä vaiheessa netin kautta...
+Sain jar-tiedoston luotua, mutta en ajettua Windows ympäristössä kotikoneella. Ohjelma toimii kyllä Netbeansin kautta.
+Maven ei oikein tarjonnut ainakaan mulle sitä mihin se on kuvauksensa mukaan tarkoitettu mm. buildien luomiseen. 
+
+
+20-21.2.2014
+5h GUI opettelua ja koodailua
+5h Rakenteen muuttamista jotta GUI asettuu paremmin MVC -mallin mukaisesti
+2h Demon valmistelua
+
+
 7.-14.2.2014
 10h GUI toimintojen opettelua
 5h VMC-mallin opettelua ja toteutusta koodissa

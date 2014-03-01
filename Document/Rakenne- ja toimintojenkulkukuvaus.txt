@@ -1,0 +1,24 @@
+Ohjelma alkaa luomalla Kontrolleri-olio. Sama olio on voimassa koko pelisession ajan.
+
+Kontrolleri luo Peli-olion kontrolleriin asetetuilla ioletusasetuksilla. Peli olio edustaa MVC:n Modelia. Peli olio luo 
+Pelilaudan, joka oleellinen tietorakenne peli tilanteen yll‰pidossa.'
+
+Kontrolleri luo Naytto-olion, joka edustaa MVC:n Viewta. View saa patrametrina oletuslautavaihtoehdot ja 
+tavoiteltavan suoranpituus vaihtoehdot sek‰ kontrollerin.
+
+Naytto asentaa n‰ytˆn oletusasetuksilla, johon kuuluu lautakoon ja suorakoon valikot ja oletuspelilauta. Asettaa 
+actionlistenerit painikkeihin luomalla niihin NapinKuuntelija -olion, joihin myˆs kontrolleri liitet‰‰n.
+
+Pelin alussa voidaan muuttaa pelin lautakokoa ja suorakokoa ennen ensimm‰isen pelimerkin asettamista 
+laudalle. T‰ss‰ tapauksessa kontrolleri p‰ivitt‰‰ Pelin uudella lautakoolla ja suorakoolla.
+
+Kun peli alkaa valikot piilotetaan Naytto-oliossa. Pelin kulussa tarkistetaan Peli-oliosta onko pelilaudalla 
+voittorivej‰. Kun voittorivi ilmaantuu, peli asetetaan p‰‰ttyneeksi ja voitto rivit n‰ytet‰‰n laudalla Naytto-olion 
+toimesta.
+
+Uusi peli alkaa klikattaessa viimeist‰ n‰kym‰‰, jolloin uusi Peli alustetaan edellisen pelin asetukset oletuksena ja 
+Naytto tuo uuden laudan ja valikot esille.
+
+
+
+

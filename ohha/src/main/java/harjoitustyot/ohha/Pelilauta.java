@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *Pitää yllä pelilaudan tilannetta mitä merkkejä risti tai nolla missäkin kohtaa lautaa. 
  * Luokan kautta merkkien lisäykset tarkastuksineen
  * Luokan kautta tarkistus onko voittorivejä laudalla annetusta koordinaatista
+ * 
  * @author 513228
  */
 public class Pelilauta {
@@ -25,7 +26,7 @@ public class Pelilauta {
    private final int MaxKorkeus = 50;
    private int[][] lautamatriisi; // pelilaudan ruudukko, ruudukoilla arvot 0 = tyhjä, 1=pelaajan yksi merkki, 2=pelaajan kaksi merkki
    //kuinka montaa peräkkäistä tavoitellaan
-   private final int SUORANKOKO=5;
+   private int SUORANKOKO=5;
    private int maxmerkkilkm;
    private int merkkilkm = 0;
 
@@ -34,18 +35,14 @@ public class Pelilauta {
     * Jos annetut mittasuhteet liian isoja tai pieniä, luo oletuskokoisen laudan
     * @param leveys Laudan leveys
     * @param korkeus Laudaan korkeus
+    * @param suorankoko Pelissä tavopiteltavan merkkijonon pituus
+    * 
     */
-   public Pelilauta (int leveys, int korkeus){
-       //Asettaa korkeus ja leveysmuuttujat jos ovat välillä 7-25 muuten oletuskoko 15
-       if (korkeus>=this.MinKorkeus && korkeus<=this.MaxKorkeus && leveys>=this.MinLeveys && leveys<=this.MaxLeveys) {
+   public Pelilauta (int leveys, int korkeus, int suorankoko){
         this.pelilautaKorkeus=korkeus;
         this.pelilautaLeveys=leveys;
-       }
-       else {
-        this.pelilautaKorkeus=OLETUSKOKO;
-        this.pelilautaLeveys=OLETUSKOKO;           
-       }
-       
+
+        this.SUORANKOKO=suorankoko;
        //luo pelilaudan matriisin ja alustaa matriisin ruutujen aloitustilat eli tyhjjät
        this.lautamatriisi=new int [pelilautaKorkeus][pelilautaLeveys];
        this.maxmerkkilkm=this.pelilautaKorkeus*this.pelilautaLeveys;
@@ -86,26 +83,34 @@ public class Pelilauta {
    
    
    /**
-    * Kokoaa kolme tarkistus metodia etsiVaakaan, etsiPystyyn, etsiVinoon pelin voittajan selvittämiseksi
+    * Kokoaa neljä tarkistus metodia etsiVaakaan, etsiPystyyn, etsiOIkeaYlä, etsi VasenALa pelin voittajan selvittämiseksi
     * Etsintä tehdään aina viimeksi lisätyn koordinaatin välittömästä läheisyydstä - eu tarkista siis koko lautaa
-    * HUOM! vasta vaakaan tarkistus kolmesta metodista valmiina
+    * Palauttaa voittorivin, jossa voi olla useampia voittosuuntia
     * @param x Leveys koordinaatti
     * @param y Pystykoordinaatti
     * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
     */
    public ArrayList etsiSuorat(int x, int y) {
        
+//       System.out.println("Suoorankoko2: " + this.SUORANKOKO);
        ArrayList kaikki = new ArrayList();
        ArrayList vaakaan = etsiVaakaan(x,y);
        ArrayList pystyyn = etsiPystyyn(x,y);
-       System.out.println(vaakaan);
-       System.out.println(pystyyn);
+       ArrayList ristiin1 = etsiVasenYlaOikeaAla(x,y);
+       ArrayList ristiin2 = etsiOikeaYlaVasenAla(x,y);
+//       System.out.println(vaakaan);
+//       System.out.println(pystyyn);
+//       System.out.println(ristiin1);
        
-       if (vaakaan.size()>=5)
+       if (vaakaan.size()>=this.SUORANKOKO)
            kaikki.addAll(vaakaan);
-       if (pystyyn.size()>=5)
+       if (pystyyn.size()>=this.SUORANKOKO)
            kaikki.addAll(pystyyn);
-//       System.out.println(kaikki);
+       if (ristiin1.size()>=this.SUORANKOKO)
+           kaikki.addAll(ristiin1);
+       if (ristiin2.size()>=this.SUORANKOKO)
+           kaikki.addAll(ristiin2);
+ //      System.out.println(kaikki);
        return kaikki;
    }
    
@@ -116,7 +121,7 @@ public class Pelilauta {
     * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
     */
    private ArrayList etsiVaakaan(int x, int y) {
-       int merkki = lautamatriisi[x-1][y-1];
+       int merkki = this.lautamatriisi[x-1][y-1];
        ArrayList koordinaatit = new ArrayList();
 
        if (merkki==1 || merkki==2) {
@@ -128,12 +133,12 @@ public class Pelilauta {
            koordinaatit.add(koordinaatti);
            
 
-           if (x-SUORANKOKO+koordinaatit.size()<1)
+           if (x-this.SUORANKOKO+koordinaatit.size()<1)
                 vasenmax=1;
-           else vasenmax=x-SUORANKOKO+koordinaatit.size();
+           else vasenmax=x-this.SUORANKOKO+koordinaatit.size();
         
            for (int i=x-1;i>=vasenmax;i=i-1){
-                if (lautamatriisi[i-1][y-1]==merkki) {
+                if (this.lautamatriisi[i-1][y-1]==merkki) {
                     koordinaatti = new ArrayList();
                     koordinaatti.add(i);
                     koordinaatti.add(y);
@@ -144,12 +149,12 @@ public class Pelilauta {
 
            //Oikea suunta
            int oikeamax;
-           if (x+SUORANKOKO-koordinaatit.size()>this.pelilautaLeveys)
+           if (x+this.SUORANKOKO-koordinaatit.size()>this.pelilautaLeveys)
                 oikeamax=this.pelilautaLeveys;
-           else oikeamax=x+SUORANKOKO-koordinaatit.size();
+           else oikeamax=x+this.SUORANKOKO-koordinaatit.size();
         
            for (int i=x+1;i<=oikeamax;i=i+1){
-                if (lautamatriisi[i-1][y-1]==merkki) {
+                if (this.lautamatriisi[i-1][y-1]==merkki) {
                     koordinaatti = new ArrayList();
                     koordinaatti.add(i);
                     koordinaatti.add(y);
@@ -161,6 +166,12 @@ public class Pelilauta {
        return koordinaatit;
    
    }
+   /** Pystyyn tarkistus
+    * Kokoaa annetusta koordinaatista pystyyn samojen peräkkäisten merkkien koordinaatit taulukkoon
+    * @param x Leveys koordinaatti
+    * @param y Pystykoordinaatti
+    * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
+    */
    private ArrayList etsiPystyyn(int x, int y) {
        int merkki = lautamatriisi[x-1][y-1];
        ArrayList koordinaatit = new ArrayList();
@@ -208,8 +219,151 @@ public class Pelilauta {
    
    }
    
+   /** Oikealle alas tarkistus - ensimmäinen viistosuunta
+    * Kokoaa annetusta koordinaatista Oikealle alas samojen vierekkäisten merkkien koordinaatit taulukkoon
+    * @param x Leveys koordinaatti
+    * @param y Pystykoordinaatti
+    * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
+    */
+
+   private ArrayList etsiVasenYlaOikeaAla(int x, int y) {
+       int merkki = lautamatriisi[x-1][y-1];
+       ArrayList koordinaatit = new ArrayList();
+
+       if (merkki==1 || merkki==2) {
+           ArrayList koordinaatti = new ArrayList();
+           koordinaatti.add(x);
+           koordinaatti.add(y);
+           koordinaatit.add(koordinaatti);
+
+           //Vasenyläsuunta           
+           int ylosmax;        
+           if (y-SUORANKOKO<0)
+                ylosmax=y-1;
+           else ylosmax=SUORANKOKO-1;
+        
+           int vasenmax;        
+           if (x-SUORANKOKO<0)
+                vasenmax=x-1;
+           else vasenmax=SUORANKOKO-1;
+           int max=Math.min(vasenmax, ylosmax);
+//           System.out.println("1.max " + max);
+           for (int i=1;i<=max;i=i+1){
+                if (lautamatriisi[x-1-i][y-1-i]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x-i);
+                    koordinaatti.add(y-i);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+           
+//           System.out.println("b:" + koordinaatit);
+
+           //Oikeaalasuunta           
+           int alasmax;        
+           if (this.pelilautaKorkeus<y+SUORANKOKO-koordinaatit.size())
+                alasmax=this.pelilautaKorkeus-y;
+           else alasmax=SUORANKOKO-koordinaatit.size();
+        
+           int oikeamax;        
+           if (this.pelilautaLeveys<x+SUORANKOKO-koordinaatit.size())
+                oikeamax=this.pelilautaLeveys-x;
+           else oikeamax=SUORANKOKO-koordinaatit.size();
+
+           max=Math.min(oikeamax, alasmax);
+           
+//           System.out.println("2.max " + max);
+
+           for (int i=1;i<=max;i=i+1){
+                if (lautamatriisi[x-1+i][y-1+i]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x+i);
+                    koordinaatti.add(y+i);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+       }
+//       System.out.println("a:" + koordinaatit);
+
+       return koordinaatit;
+   
+   }
    
    
+   /** Oikealle ylös tarkistus - toinen viistosuunta
+    * Kokoaa annetusta koordinaatista Oikealle ylös samojen vierekkäisten merkkien koordinaatit taulukkoon
+    * @param x Leveys koordinaatti
+    * @param y Pystykoordinaatti
+    * @return Palauttaa ArrayListin jossa tarkistuspisteestä lasketit vierekkäisten samojen merkkien koordinaatit
+    */
+
+   private ArrayList etsiOikeaYlaVasenAla(int x, int y) {
+       int merkki = lautamatriisi[x-1][y-1];
+       ArrayList koordinaatit = new ArrayList();
+
+       if (merkki==1 || merkki==2) {
+           ArrayList koordinaatti = new ArrayList();
+           koordinaatti.add(x);
+           koordinaatti.add(y);
+           koordinaatit.add(koordinaatti);
+
+           //Oikeayläsuunta           
+           int ylosmax;        
+           if (y-SUORANKOKO<0)
+                ylosmax=y-1;
+           else ylosmax=SUORANKOKO-1;
+        
+           int oikeamax;        
+           if (this.pelilautaLeveys<x+SUORANKOKO-koordinaatit.size())
+                oikeamax=this.pelilautaLeveys-x;
+           else oikeamax=SUORANKOKO-koordinaatit.size();
+
+           int max=Math.min(oikeamax, ylosmax);
+//           System.out.println("1.max " + max);
+           for (int i=1;i<=max;i=i+1){
+                if (lautamatriisi[x-1+i][y-1-i]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x+i);
+                    koordinaatti.add(y-i);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+           
+//           System.out.println("b:" + koordinaatit);
+
+           //Oikeaalasuunta           
+           int alasmax;        
+           if (this.pelilautaKorkeus<y+SUORANKOKO-koordinaatit.size())
+                alasmax=this.pelilautaKorkeus-y;
+           else alasmax=SUORANKOKO-koordinaatit.size();
+        
+           int vasenmax;        
+           if (x-SUORANKOKO<0)
+                vasenmax=x-1;
+           else vasenmax=SUORANKOKO-1;
+
+           max=Math.min(vasenmax, alasmax);
+           
+//           System.out.println("2.max " + max);
+
+           for (int i=1;i<=max;i=i+1){
+                if (lautamatriisi[x-1-i][y-1+i]==merkki) {
+                    koordinaatti = new ArrayList();
+                    koordinaatti.add(x-i);
+                    koordinaatti.add(y+i);
+                    koordinaatit.add(koordinaatti);
+                }         
+                else break;
+           }
+       }
+//       System.out.println("a:" + koordinaatit);
+
+       return koordinaatit;
+   
+   }
    public int[][] haeLautaMatriisiTaulukko() {
        return this.lautamatriisi;
    }
@@ -229,6 +383,7 @@ public class Pelilauta {
        return this.pelilautaLeveys;
    }
    
+//aputulosteita
    public String tulostaLautaMatriisi() {
        String tuloste = "";
        for (int j=0;j<this.pelilautaKorkeus;j=j+1) {

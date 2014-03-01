@@ -24,6 +24,7 @@
 </dependencies>
     
 <build>
+    
     <plugins>
         <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -39,12 +40,12 @@
             <version>0.30</version>
             <configuration>
                 <targetClasses>
-                    <param>harjoitustyot.ohha*</param>
-                    <param>harjoitustyot.ohha*</param>
+                    <param></param>
+                    <param></param>
                 </targetClasses>
                 <targetTests>
-                    <param>harjoitustyot.ohha*</param>
-                    <param>harjoitustyot.ohha*</param>
+                    <param></param>
+                    <param></param>
                 </targetTests>
             </configuration>
         </plugin>
@@ -54,13 +55,35 @@
             <configuration>
                 <instrumentation>
                     <includes>
-                        <include>harjoitustyot.ohha*.class</include>
-                        <include>harjoitustyot.ohha*.class</include>
+                        <include></include>
+                        <include></include>
                     </includes>
                 </instrumentation>
             </configuration>
             <version>2.6</version>
         </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>2.2</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>App.class</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
+
 </build>  
 </project>
