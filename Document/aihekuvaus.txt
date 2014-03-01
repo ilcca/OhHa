@@ -1,3 +1,16 @@
+1.3.2014
+Kahden pelattava ristinollapeli. Pelin alussa voi muutta laudan kokoa kolmesta vaihtoehdosta. 
+Tavoiteltavan suoran kokoa voi muutta myös kolmesta vaihtoehdosta.
+Vaihtoehtojen kokoonpanoa voi muutta myös koodissa Kontroleri -luokan alussa - peli mukautuu sen mukaan.
+Peli tarkastaa joka kierroksen jälkeen aiheuttiko viimeisin merkki peli voiton ja voiton tullessa printtaa laudalle voittorivit (voi olla useampia)
+Kun peli päättyy klikkaamalla lautaa pääsee alkuun josta voi aloittaa uuden pelin tai muuttaa taas laudan kokoa tai suoran pituutta.
+
+
+
+
+
+
+
 30.1.
 Aihe: Jätkänshakki
 Kahden pelaajan peli, jossa pelaajat lisäävät merkkejä ruudukkoon vuorotelleen yrittäen saada viiden merkin suoran joko pystyyn, vaakaan tai vinoon.
